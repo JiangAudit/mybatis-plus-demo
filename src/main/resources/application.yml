@@ -1,0 +1,38 @@
+server:
+  #端口
+  port: 8888
+  servlet:
+  #上下文路径
+    context-path: /
+spring:
+  # 数据源连接池配置
+  datasource:
+    dynamic:
+      primary: test1
+      strict: true
+      datasource:
+        test1:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          #这是我虚拟机上的TIDB
+          url: jdbc:mysql://${MYSQL_HOST_PORT:192.168.16.44:4000}/test?useUnicode=true&useSSL=false&characterEncoding=utf8
+          username: ${MYSQL_USERNAME:root}
+          password: ${MYSQL_PASSWORD:}
+          mapper-locations: classpath:/mapper/*Mapper.xml
+        test2:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          #这是我虚拟机上的TIDB
+          url: jdbc:mysql://${MYSQL_HOST_PORT:192.168.16.44:4000}/test?useUnicode=true&useSSL=false&characterEncoding=utf8
+          username: ${MYSQL_USERNAME:root}
+          password: ${MYSQL_PASSWORD:}
+          mapper-locations: classpath:/mapper/*Mapper.xml
+   
+  jackson:
+    date-format: 'yyyy-MM-dd HH:mm:ss'
+    time-zone: GMT+8
+    
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+    check-location: true
+    

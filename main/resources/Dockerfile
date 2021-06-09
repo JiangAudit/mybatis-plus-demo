@@ -1,0 +1,22 @@
+FROM java:8-alpine
+
+#可执行文件名称
+ARG JAR_FILE_NAME
+ENV JAR_FILE_NAME=${JAR_FILE_NAME}
+
+#端口
+ARG JAR_PORT
+#jvm参数
+ENV JAR_XMS=512M
+ENV JAR_XMX=1024M
+#jar包所在路径
+ENV WORK_DIR /
+
+#暴露端口
+EXPOSE ${JAR_PORT}
+#把jar包加入到工作目录中
+ADD ${JAR_FILE_NAME} ${WORK_DIR}
+#切换工作目录
+WORKDIR ${WORK_DIR}
+#运行程序
+CMD java -Xms${JAR_XMS:-512M} -Xmx${JAR_XMX:-1024M} -jar ${JAR_FILE_NAME}
